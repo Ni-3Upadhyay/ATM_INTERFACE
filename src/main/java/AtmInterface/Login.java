@@ -55,7 +55,7 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
         add(pinNo);
 
 //      pinTextField = new JTextField();        // things written in text field are visible to user
-        pinTextField = new JPasswordField();            // password field hides the things written 
+        pinTextField = new JPasswordField();            // password field hides the things written
         pinTextField.setBounds(280, 180, 200, 30);
         add(pinTextField);
 
