@@ -4,9 +4,18 @@ import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class SignUp extends JFrame{
+public class SignUp extends JFrame implements ActionListener {
+
+//    we need the local variables as global to make a connection b/w the java and ssql
+    long rand;
+    JTextField nameTextField, fNameTextField, emailTextField, cityTextField, pinCodeTextField, addressTextField, stateTextField;
+    JButton next;
+    JRadioButton male, female, married, unmarried;
+    JDateChooser dateChooser;
 
     SignUp(){
         setLayout(null);
@@ -21,7 +30,7 @@ public class SignUp extends JFrame{
         add(jLabel);
 
         Random random = new Random();       // we need a random form no. for our file so we used math library
-        long rand = (Math.abs(random.nextLong() % 9000) + 1000L);
+         rand = (Math.abs(random.nextLong() % 9000L) + 1000L);
 
         JLabel formTitle = new JLabel("Application Form No. " + rand );          // used to write a text
         formTitle.setFont(new Font("Railway", Font.BOLD, 40));
@@ -38,7 +47,7 @@ public class SignUp extends JFrame{
         name.setBounds(100, 150, 200, 25);
         add(name);
 
-        JTextField nameTextField = new JTextField();
+         nameTextField = new JTextField();
         nameTextField.setBounds(300, 150, 300, 25);
         add(nameTextField);
 
@@ -47,7 +56,7 @@ public class SignUp extends JFrame{
         fName.setBounds(100, 190, 200, 25);
         add(fName);
 
-        JTextField fNameTextField = new JTextField();
+         fNameTextField = new JTextField();
         fNameTextField.setBounds(300, 190, 300, 25);
         add(fNameTextField);
 
@@ -57,7 +66,7 @@ public class SignUp extends JFrame{
         add(dob);
 
 //  to make a text field where we can choose date from calendar
-        JDateChooser dateChooser = new JDateChooser();
+         dateChooser = new JDateChooser();
         dateChooser.setBounds(300, 230, 300, 25);
         add(dateChooser);
 
@@ -67,16 +76,17 @@ public class SignUp extends JFrame{
         add(gender);
 
 //    for radio buttons
-        JRadioButton male = new JRadioButton("Male");
+         male = new JRadioButton("Male");
         male.setBackground(Color.WHITE);
         male.setBounds(300, 270, 100, 25);
         add(male);
 
-        JRadioButton female = new JRadioButton("Female");
+         female = new JRadioButton("Female");
         female.setBackground(Color.WHITE);
         female.setBounds(420, 270, 100, 25);
         add(female);
 
+//  on clicking the radio buttons both button can be clicked at a time so we need to use buttonGroup to resolve the problem.
         ButtonGroup addButton = new ButtonGroup();
         addButton.add(male);
         addButton.add(female);
@@ -86,7 +96,7 @@ public class SignUp extends JFrame{
         email.setBounds(100, 310, 200, 25);
         add(email);
 
-        JTextField emailTextField = new JTextField();
+         emailTextField = new JTextField();
         emailTextField.setBounds(300, 310, 300, 25);
         add(emailTextField);
 
@@ -95,12 +105,12 @@ public class SignUp extends JFrame{
         marriedStatus.setBounds(100, 350, 200, 25);
         add(marriedStatus);
 
-        JRadioButton married = new JRadioButton("Married");
+         married = new JRadioButton("Married");
         married.setBackground(Color.WHITE);
         married.setBounds(300, 350, 100, 25);
         add(married);
 
-        JRadioButton unmarried= new JRadioButton("Unmarried");
+         unmarried= new JRadioButton("Unmarried");
         unmarried.setBackground(Color.WHITE);
         unmarried.setBounds(420, 350, 100, 25);
         add(unmarried);
@@ -114,7 +124,7 @@ public class SignUp extends JFrame{
         address.setBounds(100, 390, 200, 25);
         add(address);
 
-        JTextField addressTextField = new JTextField();
+         addressTextField = new JTextField();
         addressTextField.setBounds(300, 390, 300, 25);
         add(addressTextField);
 
@@ -123,7 +133,7 @@ public class SignUp extends JFrame{
         city.setBounds(100, 430, 200, 25);
         add(city);
 
-        JTextField cityTextField = new JTextField();
+         cityTextField = new JTextField();
         cityTextField.setBounds(300, 430, 300, 25);
         add(cityTextField);
 
@@ -132,7 +142,7 @@ public class SignUp extends JFrame{
         pinCode.setBounds(100, 470, 200, 25);
         add(pinCode);
 
-        JTextField pinCodeTextField = new JTextField();
+         pinCodeTextField = new JTextField();
         pinCodeTextField.setBounds(300, 470, 300, 25);
         add(pinCodeTextField);
 
@@ -141,14 +151,15 @@ public class SignUp extends JFrame{
         state.setBounds(100, 510, 200, 25);
         add(state);
 
-        JTextField stateTextField = new JTextField();
+         stateTextField = new JTextField();
         stateTextField.setBounds(300, 510, 300, 25);
         add(stateTextField);
 
-        JButton next = new JButton("NEXT");
+         next = new JButton("NEXT");             // button is created
         next.setBackground(Color.BLUE);
         next.setForeground(Color.WHITE);
         next.setFont(new Font("Railway", Font.ITALIC, 10));
+        next.addActionListener(this);                  //is used in a button on clicking which action is performed
         next.setBounds(520, 580, 80, 20);
         add(next);
 
@@ -165,6 +176,51 @@ public class SignUp extends JFrame{
         setSize(800,780);
         setLocation(350, 20);
         setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e){
+        String formNo = " " + rand;     // as rand is long so typeConversion
+        String name = nameTextField.getText();    // getText is a function used to get the text from TextField
+        String fname = fNameTextField.getText();  // same like setText which is used to set the text in TextField
+        String dob = ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText(); // to get the date
+
+        String gender = null;           // to get the output of radio buttons
+        if(male.isSelected()){
+            gender ="Male";
+        }
+        else if(female.isSelected()){
+            gender = "Female";
+        }
+
+        String email = emailTextField.getText();
+        String maritalStatus = null;
+        if(married.isSelected()){
+            maritalStatus = "Married";
+        }
+        else if(married.isSelected()){
+            maritalStatus = "Unmarried";
+        }
+
+        String address = addressTextField.getText();
+        String city = cityTextField.getText();
+        String state = stateTextField.getText();
+        String pin = pinCodeTextField.getText();
+
+//  Now as the data is to be stored in database which is an external entity so to give validation on data
+        try{
+            if(name.equals("")){
+                JOptionPane.showMessageDialog(null, "Name is not Given");
+            }
+            else {
+                Connection connection1 = new Connection();
+                String query = "insert into signup values ('"+formNo+"', '"+name+"', '"+ fname +"', '"+dob+"', '"+gender+"', '"+email+"', '"+maritalStatus + "' , '"+address+"', '"+city+ "', '"+state+"','"+pin+"')";
+                connection1.s.executeUpdate(query);
+
+            }
+        }
+        catch (Exception ea){
+            System.out.println("Exception created");
+        }
     }
 
     public static void main(String[] args) {
