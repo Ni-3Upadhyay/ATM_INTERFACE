@@ -206,15 +206,15 @@ public class SignUp extends JFrame implements ActionListener {
         String state = stateTextField.getText();
         String pin = pinCodeTextField.getText();
 
-//  Now as the data is to be stored in database which is an external entity so to give validation on data
+//  Now as the data is to be stored in database which is an external entity so Exception Handling is used
         try{
-            if(name.equals("")){
+            if(name.equals("")){        // to give validation on data
                 JOptionPane.showMessageDialog(null, "Name is not Given");
             }
-            else {
-                Connection connection1 = new Connection();
+            else {                      // connection is created and then query is given
+                Connection connection1 = new Connection(); // a table having name signup is to be created
                 String query = "insert into signup values ('"+formNo+"', '"+name+"', '"+ fname +"', '"+dob+"', '"+gender+"', '"+email+"', '"+maritalStatus + "' , '"+address+"', '"+city+ "', '"+state+"','"+pin+"')";
-                connection1.s.executeUpdate(query);
+                connection1.s.executeUpdate(query);         // update query is used so that every time data is inserted in next line
 
             }
         }
