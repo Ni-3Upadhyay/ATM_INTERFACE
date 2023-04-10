@@ -30,7 +30,7 @@ public class Page2SignUp extends JFrame implements ActionListener {
         title2.setBounds(300, 20, 500, 60);
         add(title2);
 
-        JLabel religion = new JLabel("Religion");
+        JLabel religion = new JLabel("Religion:");
         religion.setFont(new Font("Railway", Font.PLAIN, 20));
         religion.setBounds(100, 130, 200, 30);
         add(religion);
@@ -39,7 +39,7 @@ public class Page2SignUp extends JFrame implements ActionListener {
         religionTextField.setBounds(400, 130, 300, 30);
         add(religionTextField);
 
-        JLabel category = new JLabel("Category");
+        JLabel category = new JLabel("Category:");
         category.setFont(new Font("Railway", Font.PLAIN, 20));
         category.setBounds(100, 180, 200, 30);
         add(category);
@@ -52,7 +52,7 @@ public class Page2SignUp extends JFrame implements ActionListener {
         categoryBox.setBounds(400, 180, 300, 30);
         add(categoryBox);
 
-        JLabel income = new JLabel("Income");
+        JLabel income = new JLabel("Income:");
         income.setFont(new Font("Railway", Font.PLAIN, 20));
         income.setBounds(100, 230, 200, 30);
         add(income);
@@ -151,6 +151,8 @@ public class Page2SignUp extends JFrame implements ActionListener {
         nextButton.setFont(new Font("Railway", Font.PLAIN, 10));
         nextButton.setBounds(600, 630, 80, 20);
         add(nextButton);
+
+        getContentPane().setBackground(Color.WHITE);
 
         setSize(800,750);
         setLocation(300,30);
