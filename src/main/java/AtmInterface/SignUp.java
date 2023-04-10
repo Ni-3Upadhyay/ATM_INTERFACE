@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class SignUp extends JFrame implements ActionListener {
 
-//    we need the local variables as global to make a connection b/w the java and ssql
+//    we need the local variables as global to make a connection b/w the java and sql
     long rand;
     JTextField nameTextField, fNameTextField, emailTextField, cityTextField, pinCodeTextField, addressTextField, stateTextField;
     JButton next;
@@ -216,6 +216,8 @@ public class SignUp extends JFrame implements ActionListener {
                 String query = "insert into signup values ('"+formNo+"', '"+name+"', '"+ fname +"', '"+dob+"', '"+gender+"', '"+email+"', '"+maritalStatus + "' , '"+address+"', '"+city+ "', '"+state+"','"+pin+"')";
                 connection1.s.executeUpdate(query);         // update query is used so that every time data is inserted in next line
 
+                setVisible(false);                              // on clicking next this page will disappear
+                new Page2SignUp(formNo).setVisible(true);       // this page is visible on clicking next we need same form no in the next page so passing the form no.
             }
         }
         catch (Exception ea){
