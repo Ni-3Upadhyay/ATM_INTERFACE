@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class Page3SignUp extends JFrame implements ActionListener {
 
@@ -11,8 +12,12 @@ public class Page3SignUp extends JFrame implements ActionListener {
     JCheckBox atmCard, internetBanking, mobileBanking, emailAlerts, chequeBook, eStatement, declaration;
 
     JButton submit, cancel;
+    String formNo;
     Page3SignUp(String formNo){
+
         setLayout(null);
+
+        this.formNo = formNo;
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("SBI.jpg"));
         Image i2 = i1.getImage().getScaledInstance(80, 50, Image.SCALE_DEFAULT);
@@ -156,10 +161,78 @@ public class Page3SignUp extends JFrame implements ActionListener {
         setLocation(350, 50);
     }
 
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource()== submit){
+    public void actionPerformed(ActionEvent ae){
+        if(ae.getSource()== submit){
+            String accountType = null;
+            if(currentAccount.isSelected()){
+                accountType = "Current Account";
+            }
+            else if(savingAccount.isSelected()){
+                accountType = "Saving Account";
+            }
+            else if(fixedDepositAccount.isSelected()){
+                accountType = "Fixed Deposit Account";
+            }
+            else if(recurringDepositAccount.isSelected()){
+                accountType = "Recurring Deposit Account";
+            }
 
-        } else if (e.getSource()== cancel) {
+            Random random = new Random();
+            String cardNumber = "" + Math.abs((random.nextLong() %90000000L) + 1122330000000000L);
+
+            String pinNumber = "" + Math.abs((random.nextLong()%9000L) + 1000L);
+
+            String facility = null;
+            if(atmCard.isSelected()){
+                facility = facility + " ATM Card";
+            }
+            if(internetBanking.isSelected()){
+                facility = facility + " Internet Banking";
+            }
+            if(mobileBanking.isSelected()){
+                facility = facility + " Mobile Banking";
+            }
+            if(emailAlerts.isSelected()){
+                facility = facility + " Email Alerts";
+            }
+            if(chequeBook.isSelected()){
+                facility = facility + " Cheque Book";
+            }
+            if(eStatement.isSelected()){
+                facility = facility + " E-Statement";
+            }
+
+            String declared = null;
+            if(declaration.isSelected()){
+                declared = "True";
+            }
+            else {
+                declared = "False";
+            }
+
+            try{
+                if(accountType.equals("")){
+                    JOptionPane.showMessageDialog(null, "Account type is required");
+                }
+                else if(declared.equals("False")){
+                    JOptionPane.showMessageDialog(null, "declaration is required");
+                }
+                else{
+                    Connection c = new Connection();
+                    String query1 = "insert into signup3 values('"+formNo+ "', '"+accountType+ "','"+cardNumber+ "', '"+pinNumber+ "', '"+facility+ "') ";
+                    String query2 = "insert into login values('"+formNo+ "','"+cardNumber+ "', '"+pinNumber+ "') ";
+
+                    c.s.executeUpdate(query1);
+                    c.s.executeUpdate(query2);
+
+                    JOptionPane.showMessageDialog(null, "Card Number : " + cardNumber + "\nPin Number : " + pinNumber);
+                }
+            }catch (Exception e){
+                System.out.println("Exception ");
+            }
+
+
+        } else if (ae.getSource()== cancel) {
 
         }
     }

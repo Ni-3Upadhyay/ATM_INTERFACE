@@ -11,14 +11,19 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
 
     JButton signIn, clear, signUp;          // these buttons were locally defined so to access them we defined them globally
     JTextField cardTextField, pinTextField;
+
+    String formNo;
 //    login page
-    Login(){
+    Login(String formNo){
+
+        this.formNo = formNo;
+
         setTitle("ATM Interface LogIn Page");   // a title at the top
         setLayout(null);                        // to create our own custom layout
 
 //  to give image icon
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("SBI.jpg"));        // to load the image
-        Image i2 = i1.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
+        Image i2 = i1.getImage().getScaledInstance(100,60,Image.SCALE_DEFAULT);
 
         // to set the size of an ImageIcon we need Image but image directly can not be given to JLabel so it needed to be converted to ImageIcon
 
@@ -26,7 +31,7 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
 
         JLabel label = new JLabel(i3);                // image can not be given to JLabel
 
-        label.setBounds(200,10,80,80);  // swing has its default layout so to custom layout we need to make default layout null
+        label.setBounds(200,20,100,60);  // swing has its default layout so to custom layout we need to make default layout null
                                                             // and then setBounds accordingly
         add(label);
 
@@ -34,14 +39,14 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
 //  heading in front of logo
         JLabel title = new JLabel("Bank Sign In");                  // to load a text
         title.setBounds(300, 30, 300, 50);             // to set the location and boundaries of text
-        title.setForeground(Color.BLUE);                                 // to give color to a text
+        title.setForeground(Color.BLACK);                                 // to give color to a text
 //        title.setBackground(Color.BLUE);
         title.setFont(new Font("Railway", Font.BOLD, 40));    // to give font style type size
         add(title);                                                     // to print a text
 
 //  content
         JLabel cardno = new JLabel("Card No.");
-        cardno.setFont(new Font("Railway", Font.ITALIC, 20));
+        cardno.setFont(new Font("Railway", Font.BOLD, 20));
         cardno.setBounds(150, 130, 100, 30);
         add(cardno);
 
@@ -50,7 +55,7 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
         add(cardTextField);
 
         JLabel pinNo = new JLabel("Pin No.");
-        pinNo.setFont(new Font("Railway", Font.ITALIC, 20));
+        pinNo.setFont(new Font("Railway", Font.BOLD, 20));
         pinNo.setBounds(150, 180, 100, 30);
         add(pinNo);
 
@@ -98,12 +103,14 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
 
         }
         else if(event.getSource() == signUp){
-
+            setVisible(false);
+            SignUp sign = new SignUp();
+            sign.setVisible(true);
         }
     }
 
     public static void main(String[] args) {
-        Login login = new Login();
+        Login login = new Login("");
     }
 
 }

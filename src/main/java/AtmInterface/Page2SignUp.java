@@ -190,6 +190,9 @@ public class Page2SignUp extends JFrame implements ActionListener {
                 Connection connection = new Connection();
                 String query = "insert into signup2 values('" + formNo + "', '"+ religion +"', '"+ occupation +"' ,'"+ aadhar +"', '"+ pan +"', '"+existingAccount +"' , '"+seniorCitizen +  "', '" + category + "' , '" + income +"', '" +education +"')";
                 connection.s.executeUpdate(query);          // query to insert
+
+            setVisible(false);
+            new Page3SignUp(formNo).setVisible(true);
         }
         catch (Exception e1){
             System.out.println("Error in page 2");
