@@ -4,6 +4,7 @@ import javax.swing.*;    // JFrame class is available in swing
 import java.awt.*;       // Image class is available in awt
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 
 public class Login extends JFrame implements ActionListener {  // JFrame is a class used to create a frame.
@@ -100,6 +101,26 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
             pinTextField.setText("");           // is written in it. It will be cleared
         }
         else if(event.getSource()== signIn){
+            Connection connection = new Connection();
+
+            String cardNumber = cardTextField.getText();
+            String pinNumber = pinTextField.getText();
+            String query = "select * from login where cardNumber = '"+cardNumber+"' and pinNumber = '"+pinNumber+"'";
+
+            try{
+                ResultSet resultSet = connection.s.executeQuery(query);
+
+                if(resultSet.next()){
+                    setVisible(false);
+                    new Transaction(pinNumber).setVisible(true);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Card number or pin is incorrect");
+                }
+            }
+            catch (Exception e){
+                System.out.println("Exception");
+            }
 
         }
         else if(event.getSource() == signUp){
