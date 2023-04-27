@@ -69,7 +69,7 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
          signIn = new JButton("SIGN IN");                // for button
         signIn.setBounds(280, 250, 80, 20);
         signIn.setForeground(Color.WHITE);
-        signIn.setBackground(Color.BLUE);
+
         signIn.addActionListener(this);   // function checks which action if performed
         add(signIn);
 
@@ -77,13 +77,13 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
         clear.setBounds(380, 250, 80, 20);
         clear.setForeground(Color.WHITE);
         clear.addActionListener(this);
-        clear.setBackground(Color.BLUE);
+
         add(clear);
 
          signUp = new JButton("SIGN UP");                // for button
         signUp.setBounds(290, 290, 160, 20);
         signUp.setForeground(Color.WHITE);
-        signUp.setBackground(Color.BLUE);
+
         signUp.addActionListener(this);
         add(signUp);
 
@@ -112,7 +112,7 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
 
                 if(resultSet.next()){
                     setVisible(false);
-                    new Transaction(pinNumber).setVisible(true);
+                    new Transaction(pinNumber,cardNumber).setVisible(true);
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Card number or pin is incorrect");

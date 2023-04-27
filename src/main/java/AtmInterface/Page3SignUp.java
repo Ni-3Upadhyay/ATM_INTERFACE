@@ -226,6 +226,9 @@ public class Page3SignUp extends JFrame implements ActionListener {
                     c.s.executeUpdate(query2);
 
                     JOptionPane.showMessageDialog(null, "Card Number : " + cardNumber + "\nPin Number : " + pinNumber);
+
+                    setVisible(false);
+                    new Deposit(cardNumber).setVisible(true);
                 }
             }catch (Exception e){
                 System.out.println("Exception ");
@@ -233,7 +236,8 @@ public class Page3SignUp extends JFrame implements ActionListener {
 
 
         } else if (ae.getSource()== cancel) {
-
+            setVisible(false);
+            new Login(formNo).setVisible(true);
         }
     }
 
