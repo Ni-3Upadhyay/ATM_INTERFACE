@@ -68,21 +68,21 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
 //  sign in button
          signIn = new JButton("SIGN IN");                // for button
         signIn.setBounds(280, 250, 80, 20);
-        signIn.setForeground(Color.WHITE);
+        signIn.setForeground(Color.black);
 
         signIn.addActionListener(this);   // function checks which action if performed
         add(signIn);
 
          clear = new JButton("CLEAR");                // for button
         clear.setBounds(380, 250, 80, 20);
-        clear.setForeground(Color.WHITE);
+        clear.setForeground(Color.black);
         clear.addActionListener(this);
 
         add(clear);
 
          signUp = new JButton("SIGN UP");                // for button
         signUp.setBounds(290, 290, 160, 20);
-        signUp.setForeground(Color.WHITE);
+        signUp.setForeground(Color.black);
 
         signUp.addActionListener(this);
         add(signUp);

@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.util.Date;
 
 public class Withdrawl extends JFrame implements ActionListener {
 
@@ -68,6 +70,38 @@ public class Withdrawl extends JFrame implements ActionListener {
         }
         else if(ae.getSource() == withdraw){
 
+            String withdrawl = amount.getText();
+            Date date = new Date();
+
+            try {
+                Connection connection = new Connection();
+
+                ResultSet resultSet = connection.s.executeQuery("select * from bank where cardNumber = '"+cardNumber+"'");
+                int balance = 0;
+
+                while (resultSet.next()){
+                    if(resultSet.getString("DepositOrWithdraw").equals("deposit")){
+                        balance += Integer.parseInt(resultSet.getString("amount"));
+                    }
+                    else {
+                        balance -= Integer.parseInt(resultSet.getString("amount"));
+                    }
+                }
+
+                if(ae.getSource() != back && balance < Integer.parseInt(withdrawl)){
+                    JOptionPane.showMessageDialog(null, "Insufficient Balance");
+                    return;
+                }
+
+                String query = "insert into bank values( '"+cardNumber+"', '"+pinNumber+"' ,'"+date+"', 'withdraw' , '"+withdrawl+"')";
+                connection.s.executeUpdate(query);
+
+                JOptionPane.showMessageDialog(null, "Please collect your money");
+                setVisible(false);
+                new Transaction(pinNumber,cardNumber).setVisible(true);
+            }catch (Exception e){
+                System.out.println("Exception");
+            }
         }
     }
 

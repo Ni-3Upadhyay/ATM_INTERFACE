@@ -4,17 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.Date;
 
 
 public class Deposit extends JFrame implements ActionListener {
 
     JTextField amount;
     JButton back, deposit;
-    String cardNumber;
-    Deposit(String cardNumber){
+    String cardNumber, pinNumber=null;
+    Deposit( String pinNumber, String cardNumber){
 
         this.cardNumber = cardNumber;
+        this.pinNumber = pinNumber;
 
         setLayout(null);
 
@@ -64,14 +65,35 @@ public class Deposit extends JFrame implements ActionListener {
 
         if(ae.getSource()==back){
             setVisible(false);
-            new Transaction("", cardNumber).setVisible(true);
+            new Transaction(pinNumber, cardNumber).setVisible(true);
         }
         else if (ae.getSource() == deposit){
+                String deposited = amount.getText();
+                Date date = new Date();
 
+                if(deposited.equals("")){
+                    JOptionPane.showMessageDialog(null, "the amount must be multiple of 100");
+                }
+                else{
+
+                    try {
+                        Connection connection = new Connection();
+
+                        String query = "insert into bank values('" + cardNumber + "', '" + pinNumber + "', '" + date + "', 'deposit', '" + deposited + "')";
+                        connection.s.executeUpdate(query);
+                        JOptionPane.showMessageDialog(null, "The amount " + deposited+ " Deposited Successfully");
+                        setVisible(false);
+                        new Transaction(pinNumber,cardNumber).setVisible(true);
+
+                    }catch (Exception e){
+                        System.out.println("Exception");
+                    }
+
+                }
         }
     }
 
     public static void main(String[] args) {
-        Deposit deposit = new Deposit("");
+        Deposit deposit = new Deposit("", "");
     }
 }
