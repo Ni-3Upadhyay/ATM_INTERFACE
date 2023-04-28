@@ -104,6 +104,10 @@ public class Transaction extends JFrame implements ActionListener {
             setVisible(false);
             new FastCash(pinNumber, cardNumber).setVisible(true);
         }
+        else if(ae.getSource() == pinChange){
+            setVisible(false);
+            new ChangePin(pinNumber, cardNumber).setVisible(true);
+        }
     }
 
     public static void main(String [] args){
