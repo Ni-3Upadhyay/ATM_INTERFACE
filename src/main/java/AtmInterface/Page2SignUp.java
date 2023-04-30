@@ -199,7 +199,7 @@ public class Page2SignUp extends JFrame implements ActionListener {
                 else if(pan.equals("")){
                     JOptionPane.showMessageDialog(null, "pan card is not entered");
                 }
-            }
+
             else {
                 Connection connection = new Connection();
                 String query = "insert into signup2 values('" + formNo + "', '" + religion + "', '" + occupation + "' ,'" + aadhar + "', '" + pan + "', '" + existingAccount + "' , '" + seniorCitizen + "', '" + category + "' , '" + income + "', '" + education + "')";
