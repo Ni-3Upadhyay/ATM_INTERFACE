@@ -61,9 +61,13 @@ public class Deposit extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+
     public void actionPerformed(ActionEvent ae){
 
         if(ae.getSource()==back){
+            if(pinNumber.equals("")){
+                System.exit(0);
+            }
             setVisible(false);
             new Transaction(pinNumber, cardNumber).setVisible(true);
         }
@@ -83,8 +87,11 @@ public class Deposit extends JFrame implements ActionListener {
                         connection.s.executeUpdate(query);
                         JOptionPane.showMessageDialog(null, "The amount " + deposited+ " Deposited Successfully");
                         setVisible(false);
-                        new Transaction(pinNumber,cardNumber).setVisible(true);
-
+                        if(pinNumber.equals("")){
+                            System.exit(0);
+                        }else {
+                            new Transaction(pinNumber, cardNumber).setVisible(true);
+                        }
                     }catch (Exception e){
                         System.out.println("Exception");
                     }

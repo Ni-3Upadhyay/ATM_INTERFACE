@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 public class Login extends JFrame implements ActionListener {  // JFrame is a class used to create a frame.
                                                 // ActionListener is an interface which is used to make our buttons perform action
 
-    JButton signIn, clear, signUp;          // these buttons were locally defined so to access them we defined them globally
+    JButton signIn, clear, signUp, clickhere;          // these buttons were locally defined so to access them we defined them globally
     JTextField cardTextField, pinTextField;
 
     String formNo;
@@ -67,25 +67,36 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
 
 //  sign in button
          signIn = new JButton("SIGN IN");                // for button
-        signIn.setBounds(280, 250, 80, 20);
+        signIn.setBounds(280, 240, 80, 20);
         signIn.setForeground(Color.black);
 
         signIn.addActionListener(this);   // function checks which action if performed
         add(signIn);
 
          clear = new JButton("CLEAR");                // for button
-        clear.setBounds(380, 250, 80, 20);
+        clear.setBounds(380, 240, 80, 20);
         clear.setForeground(Color.black);
         clear.addActionListener(this);
 
         add(clear);
 
          signUp = new JButton("SIGN UP");                // for button
-        signUp.setBounds(290, 290, 160, 20);
+        signUp.setBounds(290, 280, 160, 20);
         signUp.setForeground(Color.black);
 
         signUp.addActionListener(this);
         add(signUp);
+
+        JLabel deposit = new JLabel("If you want to deposit money enter card number and ");
+        deposit.setFont(new Font("Railway", Font.BOLD, 17));
+        deposit.setBounds(100, 320, 500, 20);
+        add(deposit);
+
+         clickhere = new JButton("Click Here");                // for button
+        clickhere.setBounds(530, 320, 100, 25);
+        clickhere.setForeground(Color.black);
+        clickhere.addActionListener(this);
+        add(clickhere);
 
         setSize(800, 400);    // creates a frame but is not visible
         setVisible(true);                 // now the frame becomes visible
@@ -127,6 +138,25 @@ public class Login extends JFrame implements ActionListener {  // JFrame is a cl
             setVisible(false);
             SignUp sign = new SignUp();
             sign.setVisible(true);
+        }
+        else if(event.getSource() == clickhere){
+
+            try{
+                Connection connection = new Connection();
+
+                ResultSet rs = connection.s.executeQuery("select * from login where cardNumber = '"+cardTextField.getText()+"'");
+
+                if(rs.next()){
+                    setVisible(false);
+                    new Deposit("", cardTextField.getText()).setVisible(true);
+                }else {
+                    JOptionPane.showMessageDialog(null, "Incorrect card number");
+                }
+
+            }catch (Exception e){
+                System.out.println("exce");
+            }
+
         }
     }
 

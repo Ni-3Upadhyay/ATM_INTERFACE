@@ -211,6 +211,22 @@ public class SignUp extends JFrame implements ActionListener {
             if(name.equals("")){        // to give validation on data
                 JOptionPane.showMessageDialog(null, "Name is not Given");
             }
+            else if(fname.equals("")){
+                JOptionPane.showMessageDialog(null, "Father's Name is not Given");
+            }
+            else if(address.equals("")){
+                JOptionPane.showMessageDialog(null, "address is not entered");
+            }
+            else if(city.equals("")){
+                JOptionPane.showMessageDialog(null, "city is not entered");
+            }
+            else if(state.equals("")){
+                JOptionPane.showMessageDialog(null, "state is not entered");
+            }
+            else if(pin.equals("")){
+                JOptionPane.showMessageDialog(null, "pin is not entered");
+            }
+
             else {                      // connection is created and then query is given
                 Connection connection1 = new Connection(); // a table having name signup is to be created
                 String query = "insert into signup values ('"+formNo+"', '"+name+"', '"+ fname +"', '"+dob+"', '"+gender+"', '"+email+"', '"+maritalStatus + "' , '"+address+"', '"+city+ "', '"+state+"','"+pin+"')";

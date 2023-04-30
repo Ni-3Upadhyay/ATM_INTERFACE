@@ -187,12 +187,28 @@ public class Page2SignUp extends JFrame implements ActionListener {
         String education = (String) educationBox.getSelectedItem();
 
         try{
+                if(religion.equals("")){        // to give validation on data
+                    JOptionPane.showMessageDialog(null, "Religion is not Given");
+                }
+                else if(occupation.equals("")){
+                    JOptionPane.showMessageDialog(null, "Father's Name is not Given");
+                }
+                else if(aadhar.equals("")){
+                    JOptionPane.showMessageDialog(null, "aadhar is not entered");
+                }
+                else if(pan.equals("")){
+                    JOptionPane.showMessageDialog(null, "pan card is not entered");
+                }
+            }
+            else {
                 Connection connection = new Connection();
-                String query = "insert into signup2 values('" + formNo + "', '"+ religion +"', '"+ occupation +"' ,'"+ aadhar +"', '"+ pan +"', '"+existingAccount +"' , '"+seniorCitizen +  "', '" + category + "' , '" + income +"', '" +education +"')";
+                String query = "insert into signup2 values('" + formNo + "', '" + religion + "', '" + occupation + "' ,'" + aadhar + "', '" + pan + "', '" + existingAccount + "' , '" + seniorCitizen + "', '" + category + "' , '" + income + "', '" + education + "')";
                 connection.s.executeUpdate(query);          // query to insert
 
-            setVisible(false);
-            new Page3SignUp(formNo).setVisible(true);
+                setVisible(false);
+                new Page3SignUp(formNo).setVisible(true);
+
+            }
         }
         catch (Exception e1){
             System.out.println("Error in page 2");
